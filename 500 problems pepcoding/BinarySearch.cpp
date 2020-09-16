@@ -12,6 +12,21 @@
 #define INF 1000000009
 using namespace std;
 
+int binary_search(vi A, int n, int target, int l, int r) {
+	int mid = l + (r - l)/2;
+	
+	if(A[mid] == target) {
+		return mid;
+	}
+	if(A[mid > target]) {
+		return binary_search(A, n, target, l, mid-1);
+	}
+	if(A[mid < target]) {
+		return binary_search(A, n, target, mid+1, r);
+	}
+	
+return -1;
+}
 
 int main()
 {
@@ -22,35 +37,16 @@ int main()
      t = 1;
      cin >> t;
      while(t--) {
-     	// a - b = target
-     	int n, diff;
-     	cin >> n >> diff;
+     	
+     	int n, target;
+     	cin >> n >> target;
      	vi A(n);
      	for(int i = 0 ; i < n; i++) {
      		cin >> A[i];
      	}
-     	// can easily be modified for negative differences as well...
-     	unordered_set<int> mp;
-     	for(int i = 0 ; i < n; i++ ) {
-     		if(A[i] > diff) {
-				if(mp.find(A[i] - diff) != mp.end()) {
-					cout << A[i] - diff << " " << A[i] << "\n";
-					break;
-				}
-				else {
-					mp.insert(A[i]);
-				}
-     		}
-     		else {
-     			if(mp.find(A[i] + diff) != mp.end()) {
-     				cout << A[i] + diff << " " << A[i] << "\n";
-     			}
-     			else {
-     				mp.insert(A[i]);
-     			}
-     			
-     		}
-     	}
+     	cout << binary_search(A, n, target, 0, n-1) << "\n";
+     	
+     	
      	
      	
      }

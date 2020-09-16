@@ -22,35 +22,37 @@ int main()
      t = 1;
      cin >> t;
      while(t--) {
-     	// a - b = target
-     	int n, diff;
-     	cin >> n >> diff;
+     	
+     	int n, m;
+     	cin >> n >> m;
      	vi A(n);
      	for(int i = 0 ; i < n; i++) {
      		cin >> A[i];
      	}
-     	// can easily be modified for negative differences as well...
-     	unordered_set<int> mp;
-     	for(int i = 0 ; i < n; i++ ) {
-     		if(A[i] > diff) {
-				if(mp.find(A[i] - diff) != mp.end()) {
-					cout << A[i] - diff << " " << A[i] << "\n";
-					break;
-				}
-				else {
-					mp.insert(A[i]);
-				}
+     	
+     	sort(A.begin() , A.end());
+     	
+     	// problem reduced to finding subarray of size m, with minimum 
+     	//difference between first and last element
+     	
+     	int l = 0;
+     	int r = m-1;
+     	
+     	int l_f = 0, r_f = 0;
+     	int mindiff = INT_MAX;
+     	while(l <= r and r < n and l >= 0) {
+     		if(A[r] - A[l] < mindiff) {
+     			l_f = l;
+     			r_f = r;
+     			mindiff = A[r] - A[l];
      		}
-     		else {
-     			if(mp.find(A[i] + diff) != mp.end()) {
-     				cout << A[i] + diff << " " << A[i] << "\n";
-     			}
-     			else {
-     				mp.insert(A[i]);
-     			}
-     			
-     		}
+     		l++; r++;
      	}
+     	cout << mindiff << "\n";
+     	
+     	
+     	
+     	
      	
      	
      }
